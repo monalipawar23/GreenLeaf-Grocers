@@ -36,6 +36,12 @@ MAX_LOGIN_ATTEMPTS = 5
 LOCKOUT_SECONDS = 300
 
 app = Flask(__name__)
+import os
+
+app.config["SECRET_KEY"] = os.environ.get(
+    "SECRET_KEY",
+    "greenleaf-local-development-key"
+)
 _secret = os.environ.get("SECRET_KEY")
 if not _secret:
     _secret = secrets.token_hex(32)  # sessions reset on restart; set SECRET_KEY in production
